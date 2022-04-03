@@ -17,13 +17,54 @@ const docTemplate = `{
         "description": "{{escape .Description}}",
         "title": "{{.Title}}",
         "contact": {
-            "name": "Emre ÇALIŞIR"
+            "name": "Hamdi"
         },
         "version": "{{.Version}}"
     },
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/authors/{id}": {
+            "get": {
+                "description": "Get author by ID",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "author"
+                ],
+                "summary": "Get author",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Author ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/author.response"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/author.response"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/author.response"
+                        }
+                    }
+                }
+            }
+        },
         "/books": {
             "get": {
                 "description": "Get all books",
@@ -221,6 +262,15 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "author.response": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "error": {
+                    "type": "string"
+                }
+            }
+        },
         "book.response": {
             "type": "object",
             "properties": {

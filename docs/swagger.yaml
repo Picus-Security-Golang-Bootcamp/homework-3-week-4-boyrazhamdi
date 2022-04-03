@@ -2,6 +2,12 @@ basePath: /api
 consumes:
 - application/json
 definitions:
+  author.response:
+    properties:
+      data: {}
+      error:
+        type: string
+    type: object
   book.response:
     properties:
       data: {}
@@ -11,11 +17,38 @@ definitions:
 host: localhost:6363
 info:
   contact:
-    name: Emre ÇALIŞIR
+    name: Hamdi
   description: This is a sample an exercise written in Go.
   title: Book API
   version: "1.0"
 paths:
+  /authors/{id}:
+    get:
+      description: Get author by ID
+      parameters:
+      - description: Author ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/author.response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/author.response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/author.response'
+      summary: Get author
+      tags:
+      - author
   /books:
     get:
       description: Get all books
